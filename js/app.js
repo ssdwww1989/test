@@ -6,7 +6,6 @@ var Enemy = function(x,y,speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
-
     this.sprite = 'images/enemy-bug.png';
 
 };
@@ -17,14 +16,12 @@ var Enemy = function(x,y,speed) {
 Enemy.prototype.update = function(dt) {
 
 
-if(this.x > 505){
+
+if(this.x > 707){
     this.x = -150;
 }else{
     this.x += dt * this.speed;
 }
-
-
-
 
     // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
     // 都是以同样的速度运行的
@@ -35,6 +32,13 @@ if(this.x > 505){
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+Enemy.prototype.checkCollisions = function(){
+    if(this.y === player.y){
+        console.log("撞上了")
+    }
+}
+
 
 // 现在实现你自己的玩家类
 // 这个类需要一个 update() 函数， render() 函数和一个 handleInput()函数
@@ -59,30 +63,50 @@ Player.prototype.update = function(){
 
 
 Player.prototype.handleInput = function(keycode){
-    if(keycode == "up"){
-        this.y+= -100;
+    switch (keycode){
+        case 'left':
 
-    }else if(keycode == "right"){
+            if(this.x>=100){
+                this.x -= 100;
+                console.log(this.x)
+            }
+            break;
+        case 'right':
+            if(this.x<=500){
+                this.x +=100;
+                console.log(this.x)
+            }
+            break;
+        case 'up':
+            if(this.y>=83){
+                this.y -= 83;
+                console.log(this.y);
+            }
+            break;
+        case 'down':
+            if(this.y<=471){
+                this.y += 83;
+                console.log(this.y)
+            }
 
-        this.x+= 100;
-
-
-    }else if(keycode == "left"){
-
-        this.x+= -100;
-    }else if(keycode =="down"){
-        this.y+= 100;
     }
+
 }
 
 
 // 现在实例化你的所有对象
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 
-var allEnemies = [(new Enemy(0,60,100)),(new Enemy(0,140,200)),(new Enemy(0,220,300)),(new Enemy(0,60,350)),(new Enemy(0,140,300)),(new Enemy(0,220,400))];
-
-
-
+var allEnemies = [
+    (new Enemy(0,60,100)),
+    (new Enemy(0,140,200)),
+    (new Enemy(0,220,300)),
+    (new Enemy(0,300,150)),
+    (new Enemy(0,380,190)),
+    (new Enemy(0,60,350)),
+    (new Enemy(0,140,300)),
+    (new Enemy(0,220,400)),
+];
 
 
 
@@ -98,7 +122,7 @@ var allEnemies = [(new Enemy(0,60,100)),(new Enemy(0,140,200)),(new Enemy(0,220,
 // 把玩家对象放进一个叫 player 的变量里面
 
 //实例化player对象 并且设置其实位置x,1 y,1
-var player = new Player(200,400);
+var player = new Player(300,472);
 
 
 
