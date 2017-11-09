@@ -10,6 +10,7 @@
  * 公开访问，以此使编写app.js的时候更加容易
  */
 
+
 var Engine = (function(global) {
     /* 实现定义我们会在这个作用于用到的变量
      * 创建 canvas 元素，拿到对应的 2D 上下文
@@ -53,7 +54,7 @@ var Engine = (function(global) {
      * 做一次就够了
      */
     function init() {
-        reset();
+        //reset();
         lastTime = Date.now();
         main();
     }
@@ -66,7 +67,7 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         //调用是否碰撞方法
-       // checkCollisions();
+       checkCollisions();
     }
 
 
@@ -79,6 +80,7 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+
     }
 
 
@@ -86,7 +88,18 @@ var Engine = (function(global) {
     //检查是否碰撞
     function checkCollisions(){
         allEnemies.forEach(function(enemy){
-            console.log(enemy.y)
+          //如果enemy的x坐标 小于 play坐标+50  并且  enemy的x坐标+50 大于 player的坐标，并且 enymy的y坐标小于palyer的 y坐标+50 并且enemy的y坐标+50 大于player的y坐标
+          if(enemy.x < player.x+60  && enemy.x+60 >player.x && enemy.y < player.y+50 && enemy.y+50 > player.y ){
+              player.reset();
+          }
+        })
+
+        stone.forEach(function(stone){
+            if(stone.x < player.x+98  && stone.x+100 >player.x && stone.y < player.y+90 && stone.y+90 > player.y ){
+                defaultdata.collision = false;
+                console.log("碰撞了")
+
+            }
         })
     }
 
@@ -104,7 +117,7 @@ var Engine = (function(global) {
                 'images/stone-block.png',   // 第四行石头
                 'images/stone-block.png',   // 第五行草地
                 'images/stone-block.png',    // 第六行草地
-                'images/grass-block.png'    // 第六行草地
+                'images/grass-block.png'    // 第七行草地
             ],
             numRows = 7,
             numCols = 7,
@@ -129,20 +142,25 @@ var Engine = (function(global) {
      */
     function renderEntities() {
         /* 遍历在 allEnemies 数组中存放的作于对象然后调用你事先定义的 render 函数 */
+
+        stone.forEach(function(stone){
+            stone.render();
+        });
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-
         player.render();
+
+
     }
 
     /* 这个函数现在没干任何事，但是这会是一个好地方让你来处理游戏重置的逻辑。可能是一个
      * 从新开始游戏的按钮，也可以是一个游戏结束的画面，或者其它类似的设计。它只会被 init()
      * 函数调用一次。
      */
-    function reset() {
+/*    function reset() {
         // 空操作
-    }
+    }*/
 
     /* 紧接着我们来加载我们知道的需要来绘制我们游戏关卡的图片。然后把 init 方法设置为回调函数。
      * 那么党这些图片都已经加载完毕的时候游戏就会开始。
@@ -152,7 +170,20 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Rock.png',
+        'images/nstone.png',
+        'images/flw_01.png',
+        'images/snk_03.png',
+        'images/xz_08.png',
+        'images/xhd_01.png',
+        'images/nflw.png',
+        'images/nhd.png',
+        'images/nsj.png',
+        'images/nxz.png',
+        'images/nyy.png',
+        'images/npc.png'
+
     ]);
     Resources.onReady(init);
 
