@@ -152,7 +152,7 @@ Player.prototype.handleInput = function(keycode){
 Player.prototype.reset = function(){
     this.x = defaultdata.playerlocx;
     this.y = defaultdata.playerlocy;
-    defaultdata.collision = true;//退回原位清除状态
+   
 }
 
 

@@ -93,6 +93,8 @@ var Engine = (function(global) {
               player.reset();
           }
         })
+
+
     }
 
     /* 这个函数做了一些游戏的初始渲染，然后调用 renderEntities 函数。记住，这个函数
