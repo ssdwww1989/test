@@ -2,17 +2,17 @@
 
 //默认数据
 var defaultdata = {
+
     enemylocy:[130,215,295,380,460,],
     enemyspeed:[100,150,190,250,300],
     enemylocx:[-100,-130,-150,-200,-220],
-    stonelocx:[0,100,200,300,400,500,600],
-    stonelocy:[130,210,290,380,460],
+
+    stonelocx:[205,305,405,505],
+    stonelocy:[132,215,298,381,464],
     playerlocx:300,
     playerlocy:545,
-    collision: true //默认碰撞
+    collision: true //默认true
 }
-
-
 
 
 
@@ -73,7 +73,7 @@ var Stone = function(x,y){
 Stone.prototype = Object.create(Enemy.prototype);
 Stone.prototype.update = function(){
 }
-var stone =[(new Stone()),(new Stone()),(new Stone())]
+var stone =[(new Stone()),(new Stone()),(new Stone()),(new Stone())]
 
 
 
@@ -85,6 +85,7 @@ var Player = function(x,y){
     /*Enemy.call(this,x,y)*/
     this.x = defaultdata.playerlocx;
     this.y = defaultdata.playerlocy;
+
     this.sprite = 'images/nflw.png';
 }
 Player.prototype = Object.create(Enemy.prototype);
@@ -96,52 +97,58 @@ Player.prototype.update = function(){
 /*Player.prototype.render = function(){
 
 }*/
-
-
-
 Player.prototype.handleInput = function(keycode){
+
+    var kt = this;
+
     switch (keycode){
         case 'left':
-            if(defaultdata.collision == false) {
-                defaultdata.collision = true;
-            }
-                if(this.x>=100){
-                    this.x -= 100;
+                if(kt.x>=100){
+                    kt.x -= 100;
                 }
-                break;
+
+            stone.forEach(function(stone){
+                if(kt.x+5 == stone.x && kt.y+2 == stone.y){
+                    kt.x+=100;
+                }
+            })
+            break;
+
         case 'right':
-            if(defaultdata.collision == false) {
-                defaultdata.collision = true;
-            }
-                if(this.x<=500){
-                    this.x +=100;
-                    console.log(this.x)
+                if (kt.x <= 500) {
+                    kt.x += 100;
                 }
+            stone.forEach(function(stone){
+                if(kt.x+5 == stone.x && kt.y+2 == stone.y){
+                    kt.x-=100;
+                }
+            })
                 break;
         case 'up':
-
-            if(defaultdata.collision== false){
-
-            }else{
-                if(this.y>=83){
-                    this.y -= 83;
+                if (kt.y >= 83) {
+                    kt.y -= 83;
                 }
-            }
-                break;
+            stone.forEach(function(stone){
+                if(kt.x+5 == stone.x && kt.y+2 == stone.y){
+                    kt.y+=83;
+                }
+            })
+                 break;
         case 'down':
-
-            if(defaultdata.collision == false) {
-                defaultdata.collision = true;
-            }else{
-
-                if(this.y<=471){
-                    this.y += 83;
-                };
-            }
-            break;
+                if (kt.y <= 471) {
+                    kt.y += 83;
+                }
+            stone.forEach(function(stone){
+                if(kt.x+5 == stone.x && kt.y+2 == stone.y){
+                    kt.y-=83;
+                }
+            })
+                break;
     }
 
 }
+
+
 Player.prototype.reset = function(){
     this.x = defaultdata.playerlocx;
     this.y = defaultdata.playerlocy;
@@ -194,14 +201,6 @@ function randomXY(arr,tag){
     tag = arr[ Math.floor(Math.random()*arr.length)];
     return tag;
 }
-
-
-
-
-
-
-
-
 
 // 这段代码监听游戏玩家的键盘点击事件并且代表将按键的关键数字送到 Play.handleInput()
 // 方法里面。你不需要再更改这段代码了。

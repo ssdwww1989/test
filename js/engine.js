@@ -93,14 +93,6 @@ var Engine = (function(global) {
               player.reset();
           }
         })
-
-        stone.forEach(function(stone){
-            if(stone.x < player.x+98  && stone.x+100 >player.x && stone.y < player.y+90 && stone.y+90 > player.y ){
-                defaultdata.collision = false;
-                console.log("碰撞了")
-
-            }
-        })
     }
 
     /* 这个函数做了一些游戏的初始渲染，然后调用 renderEntities 函数。记住，这个函数
