@@ -24,7 +24,6 @@
             _load(urlOrArr);
         }
     }
-
     /* 这是我们私有的图片加载函数， 它会被公有的图片加载函数调用 */
     function _load(url) {
         if(resourceCache[url]) {
@@ -62,7 +61,6 @@
     function get(url) {
         return resourceCache[url];
     }
-
     /* 这个函数是否检查所有被请求加载的图片都已经被加载了。
      */
     function isReady() {
@@ -75,7 +73,6 @@
         }
         return ready;
     }
-
     /* 这个函数会在被请求的函数都被加载了这个事件的回调函数栈里面增加一个函数。*/
     function onReady(func) {
         readyCallbacks.push(func);

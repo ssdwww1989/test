@@ -59,11 +59,12 @@ var Engine = (function(global) {
      * 注释了，你可以在这里实现，也可以在 app.js 对应的角色类里面实现。
      */
     function update(dt) {
-        updateEntities(dt);
-        //调用是否碰撞方法
-       checkCollisions();
+        if(sta.gamest) {
+            updateEntities(dt);
+            //调用是否碰撞方法
+            checkCollisions();
+             }
     }
-
     /* 这个函数会遍历在 app.js 定义的存放所有敌人实例的数组，并且调用他们的 update()
      * 函数，然后，它会调用玩家对象的 update 方法，最后这个函数被 update 函数调用。
      * 这些更新函数应该只聚焦于更新和对象相关的数据/属性。把重绘的工作交给 render 函数。
@@ -72,7 +73,8 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+
+
 
     }
     //检查是否碰撞
@@ -123,7 +125,10 @@ var Engine = (function(global) {
             }
         }
 
-        renderEntities();
+        if(sta.gamest) {
+            renderEntities();
+        }
+
     }
 
     /* 这个函数会在每个时间间隙被 render 函数调用。他的目的是分别调用你在 enemy 和 player
@@ -135,15 +140,10 @@ var Engine = (function(global) {
         stone.forEach(function(stone){
             stone.render();
         });
-      /*  survivals.forEach(function(survival){
-            survival.render();
-        })*/
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
         player.render();
-
-
     }
 
     /* 这个函数现在没干任何事，但是这会是一个好地方让你来处理游戏重置的逻辑。可能是一个

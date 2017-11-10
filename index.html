@@ -6,9 +6,35 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<p>金刚葫芦娃</p>
+<div>
+    <audio src="sounds/hlw.mp3" autoplay loop ></audio>
+</div>
+<div class="gamerun_wrap" >
+        <h1>游戏方法</h1>
+        <p class="p1">躲避所有移动的怪物</p>
+        <p>如果途中被怪物碰到，玩家将会回到起点</p>
+        <p>途中遇到石头请绕行</p>
+        <div class="playbtn">开始游戏</div>
+</div>
+
+<div class="gamerun_wrap  gamerun_win" id=" gamerun_win" style="display: none">
+    <h1>恭喜你！游戏获胜</h1>
+    <div class="playagent" >再玩一次</div>
+</div>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
+<script>
+    $(".playbtn").click(function(){
+        sta.gamerun();
+        $(".gamerun_wrap").hide();
+    })
+
+    $(".playagent").click(function(){
+        sta.gamereset()
+    })
+</script>
 </body>
 </html>

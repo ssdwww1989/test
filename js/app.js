@@ -2,7 +2,6 @@
 
 //默认数据
 var defaultdata = {
-
     enemylocy:[130,215,295,380,460,],
     enemyspeed:[100,150,190,250,300],
     enemylocx:[-100,-130,-150,-200,-220],
@@ -13,8 +12,18 @@ var defaultdata = {
     survivallocx:[105,405],
     survivallocy:[215,381],
 }
+
+var stone_img = ['images/stone.png'];
+var monster_img = [
+    'images/nhd.png',
+    'images/npc.png',
+    'images/nsj.png',
+    'images/nxz.png',
+    'images/nyy.png',
+]
+
 // 这是我们的玩家要躲避的敌人
-var Enemy = function(x,y,speed,img) {
+var Enemy = function(img) {
     // 要应用到每个敌人的实例的变量写在这里
     // 我们已经提供了一个来帮助你实现更多
     // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
@@ -29,9 +38,10 @@ Enemy.prototype.shuffle = function(){
 
 // 此为游戏必须的函数，用来更新敌人的位置
 // 参数: dt ，表示时间间隙
+
 Enemy.prototype.update = function(dt) {
     //判断enemy坐标是否大于canvas画布
-if(this.x > 707){
+if(this.x >  707){
     //新一轮打乱坐标
     this.shuffle();
 }else{
@@ -47,7 +57,6 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-
 //-------------------------------------随机生成石头---------------------------------------------
 var Stone = function(x,y){
     this.x = randomXY(defaultdata.stonelocx);
@@ -62,7 +71,6 @@ Stone.prototype.update = function(){
 //实例化石头
 var stone =[(new Stone()),(new Stone()),(new Stone()),(new Stone())]
 //-------------------------------------随机生成石头 结束---------------------------------------------
-
 
 
 
@@ -130,7 +138,10 @@ Player.prototype.handleInput = function(keycode){
                 if (kt.y >= 83) {
                     kt.y -= 83;
                 }
+                if(kt.y<=100){
+                    sta.gamewin();
 
+                }
             stone.forEach(function(stone){
                 if(kt.x+3 == stone.x && kt.y+2 == stone.y){
                     kt.y+=83;
@@ -149,7 +160,6 @@ Player.prototype.handleInput = function(keycode){
                 break;
     }
 }
-
 Player.prototype.reset = function(){
     this.x = defaultdata.playerlocx;
     this.y = defaultdata.playerlocy;
@@ -161,15 +171,25 @@ var player = new Player();
 
 //-------------------------------------玩家结束---------------------------------------------
 
+
+
+
+
+
+
+
+
+
+
 // 现在实例化你的所有对象
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 
 var allEnemiesall = [
-    (new Enemy(-130,140,170,"npc.png")),
-    (new Enemy(-100,220,210,"nsj.png")),
-    (new Enemy(-200,300,130,"nxz.png")),
-    (new Enemy(-210,380,250,"nyy.png")),
-    (new Enemy(-210,380,250,"nsj.png")),
+    (new Enemy("npc.png")),
+    (new Enemy("nsj.png")),
+    (new Enemy("nxz.png")),
+    (new Enemy("nyy.png")),
+    (new Enemy("nsj.png")),
 ];
 
 
@@ -187,14 +207,57 @@ function shuffle(array) {
     }
     return array;
 }
+
+//调用排位方法
 var allshu = shuffle(array);
 var allEnemies = allshu;
-//调用排位方法
 /*
 allEnemies.forEach(function(allEnemie){
     allEnemie.shuffle();
 })
 */
+
+//-------------------------------------游戏状态---------------------------------------------
+var gamest= function(){
+    this.gamest = false;
+}
+//默认游戏运行
+gamest.prototype.gamerun = function(){
+    this.gamest = true;
+
+
+}
+
+//默认游戏胜利
+gamest.prototype.gamewin = function(){
+    this.gamest = false;
+
+    stone = [];
+    $(".gamerun_win").show();
+
+}
+gamest.prototype.gamereset = function(){
+    $(".gamerun_win").hide();
+    this.gamest = true;
+    allEnemiesall.forEach(function(el){
+        el.shuffle();
+    })
+    for(var i =0 ;i <=4;i++){
+        stone.push(new Stone(stone_img[i]))
+    }
+    player.reset();
+}
+
+var sta = new gamest();
+sta.gamest;
+
+//-------------------------------------游戏状态 结束---------------------------------------------
+
+
+//-------------------------------------游戏结束状态---------------------------------------------
+
+//-------------------------------------游戏结束状态---------------------------------------------
+
 
 
 //随机生成
