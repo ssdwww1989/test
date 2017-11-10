@@ -10,7 +10,6 @@
  * 公开访问，以此使编写app.js的时候更加容易
  */
 
-
 var Engine = (function(global) {
     /* 实现定义我们会在这个作用于用到的变量
      * 创建 canvas 元素，拿到对应的 2D 上下文
@@ -21,11 +20,9 @@ var Engine = (function(global) {
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
-
     canvas.width = 707;
     canvas.height = 707;
     doc.body.appendChild(canvas);
-
     /* 这个函数是整个游戏的主入口，负责适当的调用 update / render 函数 */
     function main() {
         /* 如果你想要更平滑的动画过度就需要获取时间间隙。因为每个人的电脑处理指令的
@@ -40,10 +37,8 @@ var Engine = (function(global) {
          */
         update(dt);
         render();
-
         /* 设置我们的 lastTime 变量，它会被用来决定 main 函数下次被调用的事件。 */
         lastTime = now;
-
         /* 在浏览准备好调用重绘下一个帧的时候，用浏览器的 requestAnimationFrame 函数
          * 来调用这个函数
          */
@@ -58,7 +53,6 @@ var Engine = (function(global) {
         lastTime = Date.now();
         main();
     }
-
     /* 这个函数被 main 函数（我们的游戏主循环）调用，它本身调用所有的需要更新游戏角色
      * 数据的函数，取决于你怎样实现碰撞检测（意思是如何检测两个角色占据了同一个位置，
      * 比如你的角色死的时候），你可能需要在这里调用一个额外的函数。现在我们已经把这里
@@ -69,7 +63,6 @@ var Engine = (function(global) {
         //调用是否碰撞方法
        checkCollisions();
     }
-
 
     /* 这个函数会遍历在 app.js 定义的存放所有敌人实例的数组，并且调用他们的 update()
      * 函数，然后，它会调用玩家对象的 update 方法，最后这个函数被 update 函数调用。
@@ -82,9 +75,6 @@ var Engine = (function(global) {
         player.update();
 
     }
-
-
-
     //检查是否碰撞
     function checkCollisions(){
         allEnemies.forEach(function(enemy){
@@ -94,6 +84,11 @@ var Engine = (function(global) {
           }
         })
 
+      /*  survivals.forEach(function(survival){
+            if(survival.x < player.x+60  && survival.x+60 >player.x && survival.y < player.y+50 && survival.y+50 > player.y ){
+                survivalbl = true;
+            }
+        })*/
 
     }
 
@@ -140,6 +135,9 @@ var Engine = (function(global) {
         stone.forEach(function(stone){
             stone.render();
         });
+      /*  survivals.forEach(function(survival){
+            survival.render();
+        })*/
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
