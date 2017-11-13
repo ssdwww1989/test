@@ -72,11 +72,11 @@ var stone = [(new Stone()), (new Stone()), (new Stone()), (new Stone())]
 
 
 //后续功能，待开发
-/*//-------------------------------------待营救人员---------------------------------------------
-var Survival = function(x,y){
+//-------------------------------------待营救人员---------------------------------------------
+var Survival = function(){
     this.x = randomXY(defaultdata.survivallocx);
     this.y = randomXY(defaultdata.survivallocy);
-    this.sprite =  'images/nhd.png';
+    this.sprite =  'images/star.png';
 };
 Survival.prototype = Object.create(Stone.prototype);
 Survival.prototype.constructor = Survival;
@@ -84,8 +84,8 @@ Survival.prototype.update = function(){
 }
 
 var survivals = [(new Survival()),(new Survival())]
-console.log(survivals.x,survivals.y)
-//-------------------------------------待营救人员---------------------------------------------*/
+
+//-------------------------------------待营救人员---------------------------------------------
 
 
 //-------------------------------------玩家---------------------------------------------
@@ -108,7 +108,7 @@ Player.prototype.update = function () {
 Player.prototype.handleInput = function (keycode) {
 
 
-    var zj = document.getElementById("zj");
+
 
 
 
@@ -117,7 +117,7 @@ Player.prototype.handleInput = function (keycode) {
         case 'left':
             if (kt.x >= 100) {
                 kt.x -= 100;
-                zj.play();
+
             }
             stone.forEach(function (stone) {
                 if (kt.x + 3 == stone.x && kt.y + 2 == stone.y) {
@@ -128,7 +128,7 @@ Player.prototype.handleInput = function (keycode) {
         case 'right':
             if (kt.x <= 505) {
                 kt.x += 100;
-                zj.play();
+
             }
             stone.forEach(function (stone) {
                 if (kt.x + 3 == stone.x && kt.y + 2 == stone.y) {
@@ -140,7 +140,7 @@ Player.prototype.handleInput = function (keycode) {
 
             if (kt.y >= 83) {
                 kt.y -= 83;
-                zj.play();
+
             }
             if (kt.y <= 100) {
                 sta.gamewin();
@@ -155,7 +155,7 @@ Player.prototype.handleInput = function (keycode) {
         case 'down':
             if (kt.y <= 471) {
                 kt.y += 83;
-                zj.play();
+
             }
             stone.forEach(function (stone) {
                 if (kt.x + 3 == stone.x && kt.y + 2 == stone.y) {
@@ -190,8 +190,11 @@ var allEnemiesall = [
     (new Enemy("npc.png")),
     (new Enemy("nsj.png")),
     (new Enemy("nxz.png")),
-    (new Enemy("nyy.png")),
-    (new Enemy("nsj.png")),
+    (new Enemy("nhd.png")),
+    (new Enemy("nst.png")),
+    (new Enemy("nxz.png")),
+    (new Enemy("nhd.png")),
+
 ];
 
 

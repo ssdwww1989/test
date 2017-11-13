@@ -145,6 +145,9 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
+        survivals.forEach(function(survial){
+            survial.render();
+        })
         player.render();
     }
 
@@ -176,7 +179,9 @@ var Engine = (function(global) {
         'images/nsj.png',
         'images/nxz.png',
         'images/nyy.png',
-        'images/npc.png'
+        'images/nst.png',
+        'images/npc.png',
+        'images/star.png'
 
     ]);
     Resources.onReady(init);
