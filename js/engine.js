@@ -82,7 +82,9 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy){
           //如果enemy的x坐标 小于 play坐标+50  并且  enemy的x坐标+50 大于 player的坐标，并且 enymy的y坐标小于palyer的 y坐标+50 并且enemy的y坐标+50 大于player的y坐标
           if(enemy.x < player.x+60  && enemy.x+60 >player.x && enemy.y < player.y+50 && enemy.y+50 > player.y ){
+
               player.reset();
+
           }
         })
 

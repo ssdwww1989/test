@@ -2,13 +2,25 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Effective JavaScript: Frogger</title>
+    <title>金刚葫芦娃</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<p>金刚葫芦娃</p>
+
+
+<audio src="sounds/zj.mp3" id="zj" ></audio>
+
+<!--音乐版块-->
+<div class="logo">
+    <img src="images/logo_03.png">
+
+    <div class="music">
+        <span class="mon"><img src="images/music_on_03.png"></span>
+        <span class="moff"><img src="images/music_off.png"></span>
+    </div>
+</div>
 <div>
-    <audio src="sounds/hlw.mp3" autoplay loop ></audio>
+    <audio src="sounds/hlw.mp3" id="maudio" autoplay loop ></audio>
 </div>
 <div class="gamerun_wrap" >
         <h1>游戏方法</h1>
@@ -35,6 +47,31 @@
     $(".playagent").click(function(){
         sta.gamereset()
     })
+
+
+    //音乐控制
+    $(function(){
+        var audio = document.getElementById("maudio");
+
+
+
+        $(".mon").click(function(){
+            audio.pause();
+            $(this).hide();
+            $(".moff").show();
+        })
+
+        $(".moff").click(function(){
+            audio.play()
+            $(this).hide();
+            $(".mon").show();
+        })
+
+
+
+
+    })
+
 </script>
 </body>
 </html>

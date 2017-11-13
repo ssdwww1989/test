@@ -20,6 +20,29 @@ body {
 
 
 }
+.logo{
+
+    position: relative;
+    width: 707px;
+    margin: auto;
+    margin-bottom: -40px;
+    z-index: 9999;
+
+}
+.music{
+    position: absolute;
+    bottom:10px;
+    left: 0px;
+    width: 90px;
+    cursor: pointer;
+    height: auto;
+}
+.moff{
+    display: none;
+}
+.music img{
+    width: 100%;
+}
 .gamerun_win {}
 .playagent,.playbtn{
 
