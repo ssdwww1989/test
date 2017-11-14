@@ -11,17 +11,21 @@
  */
 
 var Engine = (function(global) {
+
     /* 实现定义我们会在这个作用于用到的变量
      * 创建 canvas 元素，拿到对应的 2D 上下文
      * 设置 canvas 元素的高/宽 然后添加到dom中
      */
+    var eatstar = document.getElementById("eatstar");
+    var tgmu = document.getElementById("tgmu");
+    var maudio1 = document.getElementById("maudio");
     var doc = global.document,
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
     canvas.width = 707;
-    canvas.height = 707;
+    canvas.height = 808;
     doc.body.appendChild(canvas);
     /* 这个函数是整个游戏的主入口，负责适当的调用 update / render 函数 */
     function main() {
@@ -79,20 +83,32 @@ var Engine = (function(global) {
     }
     //检查是否碰撞
     function checkCollisions(){
+
         allEnemies.forEach(function(enemy){
           //如果enemy的x坐标 小于 play坐标+50  并且  enemy的x坐标+50 大于 player的坐标，并且 enymy的y坐标小于palyer的 y坐标+50 并且enemy的y坐标+50 大于player的y坐标
           if(enemy.x < player.x+60  && enemy.x+60 >player.x && enemy.y < player.y+50 && enemy.y+50 > player.y ){
-
               player.reset();
 
           }
+        });
+
+       survivals.forEach(function(survival){
+            if(survival.x < player.x+60  && survival.x+60 >player.x && survival.y < player.y+50 && survival.y+50 > player.y ){
+                eatstar.play();
+                survival.reset()
+            }
         })
 
-      /*  survivals.forEach(function(survival){
-            if(survival.x < player.x+60  && survival.x+60 >player.x && survival.y < player.y+50 && survival.y+50 > player.y ){
-                survivalbl = true;
-            }
-        })*/
+
+
+        if(player.x==602 && player.y==127){//监测进城
+           console.log(player.x)
+           console.log(player.y)
+            maudio1.pause();
+            tgmu.play();
+        }
+
+
 
     }
 
@@ -104,7 +120,8 @@ var Engine = (function(global) {
     function render() {
         /* 这个数组保存着游戏关卡的特有的行对应的图片相对路径。 */
         var rowImages = [
-                'images/water-block.png',   // 这一行是河。
+                'images/fl.png',   // 这一行是河。
+                'images/zt_03.png',   // 这二行是河。
                 'images/stone-block.png',   // 第二行石头
                 'images/stone-block.png',   // 第三行石头
                 'images/stone-block.png',   // 第四行石头
@@ -112,7 +129,7 @@ var Engine = (function(global) {
                 'images/stone-block.png',    // 第六行草地
                 'images/grass-block.png'    // 第七行草地
             ],
-            numRows = 7,
+            numRows = 8,
             numCols = 7,
             row, col;
 
@@ -148,7 +165,10 @@ var Engine = (function(global) {
         survivals.forEach(function(survial){
             survial.render();
         })
+        castle.render();
         player.render();
+
+
     }
 
     /* 这个函数现在没干任何事，但是这会是一个好地方让你来处理游戏重置的逻辑。可能是一个
@@ -181,7 +201,12 @@ var Engine = (function(global) {
         'images/nyy.png',
         'images/nst.png',
         'images/npc.png',
-        'images/star.png'
+        'images/star.png',
+        'images/bs.png',
+        'images/zt_03.png',
+        'images/fl.png',
+        'images/cb.png',
+
 
     ]);
     Resources.onReady(init);

@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <title>Super mario</title>
     <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 
-
+<audio src="sounds/mg.mp3" id="eatstar" ></audio>
+<audio src="sounds/tg.mp3" id="tgmu"></audio>
 
 
 <!--音乐版块-->
@@ -51,9 +53,8 @@
 
     //音乐控制
     $(function(){
+
         var audio = document.getElementById("maudio");
-
-
 
         $(".mon").click(function(){
             audio.pause();

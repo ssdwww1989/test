@@ -1,14 +1,16 @@
 //默认数据
 var defaultdata = {
-    enemylocy: [130, 215, 295, 380, 460,],
+    enemylocy: [ 215, 295, 380, 460,547],
     enemyspeed: [100, 150, 190, 250, 300],
     enemylocx: [-100, -130, -150, -200, -220],
     stonelocx: [205, 305, 505],
-    stonelocy: [132, 298, 464],
+    stonelocy: [215, 298,381, 464,547],
     playerlocx: 302,
-    playerlocy: 545,
+    playerlocy: 625,
     survivallocx: [105, 405],
     survivallocy: [215, 381],
+    cblocx:575,
+    cblocy:25,
 }
 
 var stone_img = ['images/stone.png'];
@@ -80,12 +82,52 @@ var Survival = function(){
 };
 Survival.prototype = Object.create(Stone.prototype);
 Survival.prototype.constructor = Survival;
-Survival.prototype.update = function(){
+Survival.prototype.update = function(){}
+Survival.prototype.reset = function(){
+    for(var i = 0; i<survivals.length;i++){
+        if(player.x+3 == survivals[i].x && player.y+5 == survivals[i].y){
+            survivals.splice(i,1);
+            player.sprite = 'images/bs.png'
+        }
+    }
+
+
 }
 
-var survivals = [(new Survival()),(new Survival())]
+var survivals = [(new Survival())]
 
 //-------------------------------------待营救人员---------------------------------------------
+
+
+//城堡
+
+var Castle = function(){
+    this.x = defaultdata.cblocx;
+    this.y = defaultdata.cblocy;
+    this.sprite =  'images/cb.png';
+
+}
+Castle.prototype = Object.create(Stone.prototype);
+Castle.prototype.constructor = Castle;
+Survival.prototype.update = function(){}
+
+var castle = new Castle();
+console.log(castle.x,castle.y)
+
+//城堡 结束
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //-------------------------------------玩家---------------------------------------------
@@ -108,10 +150,6 @@ Player.prototype.update = function () {
 Player.prototype.handleInput = function (keycode) {
 
 
-
-
-
-
     var kt = this;
     switch (keycode) {
         case 'left':
@@ -120,10 +158,13 @@ Player.prototype.handleInput = function (keycode) {
 
             }
             stone.forEach(function (stone) {
-                if (kt.x + 3 == stone.x && kt.y + 2 == stone.y) {
+                if (kt.x + 3 == stone.x && kt.y + 5 == stone.y) {
                     kt.x += 100;
                 }
             })
+
+
+
             break;
         case 'right':
             if (kt.x <= 505) {
@@ -131,34 +172,38 @@ Player.prototype.handleInput = function (keycode) {
 
             }
             stone.forEach(function (stone) {
-                if (kt.x + 3 == stone.x && kt.y + 2 == stone.y) {
+                if (kt.x + 3 == stone.x && kt.y + 5 == stone.y) {
                     kt.x -= 100;
                 }
             })
             break;
         case 'up':
 
-            if (kt.y >= 83) {
+            if (kt.y >  200) {
                 kt.y -= 83;
 
             }
+
             if (kt.y <= 100) {
-                sta.gamewin();
+               // sta.gamewin();
 
             }
             stone.forEach(function (stone) {
-                if (kt.x + 3 == stone.x && kt.y + 2 == stone.y) {
+
+                console.log("人物"+kt.x,"人物"+kt.y)
+
+                if (kt.x + 3 == stone.x && kt.y + 5 == stone.y) {
                     kt.y += 83;
                 }
             })
             break;
         case 'down':
-            if (kt.y <= 471) {
+            if (kt.y <= 624) {
                 kt.y += 83;
 
             }
             stone.forEach(function (stone) {
-                if (kt.x + 3 == stone.x && kt.y + 2 == stone.y) {
+                if (kt.x + 3 == stone.x && kt.y + 5 == stone.y) {
                     kt.y -= 83;
                 }
             })
@@ -174,6 +219,10 @@ Player.prototype.reset = function () {
 
     this.x = defaultdata.playerlocx;
     this.y = defaultdata.playerlocy;
+    survivals = [(new Survival())]
+    player.sprite = 'images/nflw.png'
+
+
 
 }
 // 把玩家对象放进一个叫 player 的变量里面
@@ -256,6 +305,17 @@ gamest.prototype.gamereset = function () {
 
 var sta = new gamest();
 sta.gamest;
+
+
+
+
+
+
+
+
+
+
+
 
 //-------------------------------------游戏状态 结束---------------------------------------------
 
